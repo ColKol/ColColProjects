@@ -80,7 +80,7 @@ elif SortType == 3:#SelectionSort
                 Lowest = V1
                 LowestPos = pos + ite
             pos += 1
-#this is poo poo
+#Very Bad
 elif SortType == 4:#MergeSort
     pos = 0
     oldpos = 0
