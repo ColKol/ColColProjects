@@ -1,5 +1,6 @@
 import math 
 
+#Fart
 run = True
 while(run):
     print("")
