@@ -33,14 +33,21 @@ def CreateWindow():
     #create 1st image
     ImageSource = ImageTk.PhotoImage(Image.open(f'{Unsure}/{unsure_vehicles[ImageIndex]}'))
     ImageLabel = Label(image=ImageSource)
-    ImageLabel.grid(row=0, column=0, columnspan=5)
+    ImageLabel.grid(row=1, column=0, columnspan=5)
+
+    ImageNumber = Label(root, text=f'Image number {ImageIndex + 1}/{len(unsure_vehicles)}')
+    ImageNumber.grid(row=0, column=0, columnspan=5)
 
     myLabel = Label(root, text=f"Sent to...")
-    myLabel.grid(row=2, column=0, columnspan=5)
+    myLabel.grid(row=3, column=0, columnspan=5)
 
     #click function
     def MyClick(Classification):
+        #Text
         nonlocal myLabel
+        nonlocal ImageNumber
+
+        #Image
         nonlocal ImageLabel
         nonlocal ImageSource
         nonlocal ImageIndex
@@ -52,10 +59,11 @@ def CreateWindow():
             ImagePath = f'{Unsure}/{unsure_vehicles[ImageIndex]}'
             os.replace(f"{ImagePath}", f"{training_photos}/{Classification}/{unsure_vehicles[ImageIndex]}")
 
-        myLabel.config(text=f'Sent to {Classification}')
-
-        #Move to next image
+        # Move to next image
         ImageIndex += 1
+
+        myLabel.config(text=f'Sent to {Classification}')
+        ImageNumber.config(text=f'Image number {ImageIndex + 1}/{len(unsure_vehicles)}')
 
         #End window if all vehicles run through
         if ImageIndex >= len(unsure_vehicles):
@@ -66,7 +74,7 @@ def CreateWindow():
         #Show next image
         ImageSource = ImageTk.PhotoImage(Image.open(f'{Unsure}/{unsure_vehicles[ImageIndex]}'))
         ImageLabel = Label(image=ImageSource)
-        ImageLabel.grid(row=0, column=0, columnspan=5) #original 5
+        ImageLabel.grid(row=1, column=0, columnspan=5) #original 5
 
     #Buttons class
     class SortButton:
@@ -74,7 +82,7 @@ def CreateWindow():
             self.ButtonColumn = ButtonColumn
             self.ButtonText = ButtonText
             ChooseButton = Button(root, text=ButtonText, padx=50, command=lambda: MyClick(ButtonText))
-            ChooseButton.grid(row= 1, column=ButtonColumn)
+            ChooseButton.grid(row= 2, column=ButtonColumn)
 
     #for automation, can use learn.dls.vocab + 'skip' from fastai library
     ButtonsText = ['motorcycle', 'private_car', 'van', 'taxi', 'skip']
